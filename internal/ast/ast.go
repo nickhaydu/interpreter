@@ -33,12 +33,9 @@ type Identifier struct {
 	Value string
 }
 
-func (p *Program) TokenLiteral() string {
-	if len(p.Statements) > 0 {
-		return p.Statements[0].TokenLiteral()
-	} else {
-		return ""
-	}
+type ReturnStatement struct {
+	Token       token.Token
+	ReturnValue Expression
 }
 
 func (ls *LetStatement) statementNode() {}
@@ -51,4 +48,18 @@ func (i *Identifier) expressionNode() {}
 
 func (i *Identifier) TokenLiteral() string {
 	return i.Token.Literal
+}
+
+func (ls *ReturnStatement) statementNode() {}
+
+func (ls *ReturnStatement) TokenLiteral() string {
+	return ls.Token.Literal
+}
+
+func (p *Program) TokenLiteral() string {
+	if len(p.Statements) > 0 {
+		return p.Statements[0].TokenLiteral()
+	} else {
+		return ""
+	}
 }
